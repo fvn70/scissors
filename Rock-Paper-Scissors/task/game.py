@@ -12,7 +12,13 @@ with open('rating.txt', 'r') as file:
         if s.startswith(name):
             score = int(s.split()[1])
 
+# load all items
+cmd = input()
+if cmd:
+    things = cmd.split(',')
 
+# start game
+print("Okay, let's start")
 while True:
     thing = input()
     if thing == '!exit':
@@ -26,12 +32,14 @@ while True:
         continue
 
     i = things.index(thing)
-    j = random.randint(0, 2)
+    num = len(things)
+    all = [k for k in range(i + 1, num)] + [k for k in range(i)]
+    j = random.randint(0, num - 1)
     choice = things[j]
     if i == j:
         print(f"There is a draw ({choice})")
         score += 50
-    elif j == (i + 1) % 3:
+    elif j in all[:num // 2]:
         print(f"Sorry, but the computer chose {choice}")
     else:
         print(f"Well done. The computer chose {choice} and failed")
